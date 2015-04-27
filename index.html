@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>中国地图</title>
+<style type="text/css">
+.demo{width:760px; height:800px; margin:30px auto 0 auto; font-size:14px;}
+#province{
+    /*visibility: hidden;*/
+    padding: 0;
+    margin: 0px;
+    width: 100px;
+    height: 250px;
+    overflow: auto;
+}
+#province li{
+    list-style: none;
+    text-align: left;
+}
+.btn{
+    /*border: 0;*/
+    /*background-color: white; */
+    font-size: 14px;
+    width: 100px;
+    height: 20px ;
+}
+#selectprovince{
+    width: 320px;
+    text-align: center;
+    margin-left:150px;
+}
+#map{
+    height: 500px;
+    width: 600px;
+}
+.top_title{
+    text-align: center;
+}
+</style>
+<script type="text/javascript" src="js/raphael.js"></script>
+<script type="text/javascript" src="js/raphael.export.js"></script>
+<script type="text/javascript" src="js/canvg.js"></script>
+<script type="text/javascript" src="js/chinamapPath.js"></script>
+</head>
+
+<body>
+
+<div id="main">
+   <h2 class="top_title">中国地图</h2>
+   <div class="demo">
+   		<div id="map"></div>
+        <div id="selectprovince"><button class="btn" id='selectbtn'>请选 >></button> <button class='btn' id='savebtn'>保  存</button> 
+            <a class='btn' type="download" id='exportimg'>导出图片</a>
+            <ul id="province">
+                <li value="北京">
+                   <label><input type="checkbox" name='sltprovince' value="beijing">北京</label> 
+                </li>
+                <li value='黑龙江'>
+                    <label><input type="checkbox" name='sltprovince' value="heilongjiang">黑龙江</label> 
+                </li>
+                <li value='吉林'>
+                    <label><input type="checkbox" name='sltprovince' value="jilin">吉林</label> 
+                </li>
+                <li value='辽宁'>
+                    <label><input type="checkbox" name='sltprovince' value="liaoning">辽宁</label> 
+                </li>
+                <li value="天津">
+                    <label><input type="checkbox" name='sltprovince' value="tianjin">天津</label> 
+                </li>
+                <li value='内蒙古'>
+                    <label><input type="checkbox" name='sltprovince' value="neimeng">内蒙古</label> 
+                </li>
+                <li value='新疆'>
+                    <label><input type="checkbox" name='sltprovince' value="xijiang">新疆</label> 
+                </li>
+                <li value='宁夏'>
+                    <label><input type="checkbox" name='sltprovince' value="ningxia">宁夏</label> 
+                </li>
+                <li value='青海'>
+                    <label><input type="checkbox" name='sltprovince' value="qinghai">青海</label> 
+                </li>
+                <li value='甘肃'>
+                    <label><input type="checkbox" name='sltprovince' value="gansu">甘肃</label> 
+                </li>
+                <li value='陕西'>
+                    <label><input type="checkbox" name='sltprovince' value="shanxi">陕西</label> 
+                </li>
+                <li value='西藏'>
+                    <label><input type="checkbox" name='sltprovince' value="xizang">西藏</label> 
+                </li>
+                <li value='四川'>
+                    <label><input type="checkbox" name='sltprovince' value="sichuan">四川</label> 
+                </li>
+                <li value='重庆'>
+                    <label><input type="checkbox" name='sltprovince' value="chongqing">重庆</label> 
+                </li>
+                <li value='贵州'>
+                    <label><input type="checkbox" name='sltprovince' value="guizhou">贵州</label> 
+                </li>
+                <li value='云南'>
+                    <label><input type="checkbox" name='sltprovince' value="yunnan">云南</label> 
+                </li>
+                <li value='山西'>
+                    <label><input type="checkbox" name='sltprovince' value="shansis">山西</label> 
+                </li>
+                <li value='河北'>
+                    <label><input type="checkbox" name='sltprovince' value="heibei">河北</label> 
+                </li>
+                <li value='山东'>
+                    <label><input type="checkbox" name='sltprovince' value="shandong">山东</label> 
+                </li>
+                <li value='河南'>
+                    <label><input type="checkbox" name='sltprovince' value="henan">河南</label> 
+                </li>
+                <li value='安徽'>
+                    <label><input type="checkbox" name='sltprovince' value="anhui">安徽</label> 
+                </li>
+                <li value='江苏'>
+                    <label><input type="checkbox" name='sltprovince' value="jiangsu">江苏</label> 
+                </li>
+                <li value="上海">
+                    <label><input type="checkbox" name='sltprovince' value="shanghai">上海</label> 
+                </li>
+                <li value='湖北'>
+                    <label><input type="checkbox" name='sltprovince' value="hubei">湖北</label> 
+                </li>
+                <li value='湖南'>
+                    <label><input type="checkbox" name='sltprovince' value="hunan">湖南</label> 
+                </li>
+                <li value='江西'>
+                    <label><input type="checkbox" name='sltprovince' value="jiangxi">江西</label> 
+                </li>
+                <li value='浙江'>
+                    <label><input type="checkbox" name='sltprovince' value="zhejiang">浙江</label> 
+                </li>
+                <li value='福建'>
+                    <label><input type="checkbox" name='sltprovince' value="fujian">福建</label> 
+                </li>
+                <li value='台湾'>
+                    <label><input type="checkbox" name='sltprovince' value="taiwan">台湾</label> 
+                </li>
+                <li value='广西'>
+                    <label><input type="checkbox" name='sltprovince' value="guangxi">广西</label> 
+                </li>
+                <li value='海南'>
+                    <label><input type="checkbox" name='sltprovince' value="hainan">海南</label> 
+                </li>
+                <li value='广东'>
+                    <label><input type="checkbox" name='sltprovince' value="guangdong">广东</label> 
+                </li>
+                <li value='香港'>
+                    <label><input type="checkbox" name='sltprovince' value="hk">香港</label> 
+                </li>
+                <li value='澳门'>
+                    <label><input type="checkbox" name='sltprovince' value="aomen">澳门</label> 
+                </li>
+            </ul>
+        </div>
+   		<img id="mapimg" src="">
+
+   </div>
+   
+</div>
+
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var R = Raphael("map", 600, 500);
+        //调用绘制地图方法
+        paintMap(R);
+
+        var textAttr = {
+            "fill": "#000",
+            "font-size": "12px"
+        };
+        for (var state in china) {
+            // china[state]['path'].color = Raphael.getColor(0.9);
+
+            (function (st, state) {
+
+                //获取当前图形的中心坐标
+                var xx = st.getBBox().x + (st.getBBox().width / 2);
+                var yy = st.getBBox().y + (st.getBBox().height / 2);
+
+                //***修改部分地图文字偏移坐标
+                switch (china[state]['name']) {
+                    case "江苏":
+                        xx += 5;
+                        yy -= 10;
+                        break;
+                    case "河北":
+                        xx -= 10;
+                        yy += 20;
+                        break;
+                    case "天津":
+                        xx += 10;
+                        yy += 10;
+                        break;
+                    case "上海":
+                        xx += 10;
+                        break;
+                    case "广东":
+                        yy -= 10;
+                        break;
+                    case "澳门":
+                        yy += 10;
+                        break;
+                    case "香港":
+                        xx += 20;
+                        yy += 5;
+                        break;
+                    case "甘肃":
+                        xx -= 40;
+                        yy -= 30;
+                        break;
+                    case "陕西":
+                        xx += 5;
+                        yy += 10;
+                        break;
+                    case "内蒙古":
+                        xx -= 15;
+                        yy += 65;
+                        break;
+                    default:
+                }
+                //写入文字
+                china[state]['text'] = R.text(xx, yy, china[state]['name']).attr(textAttr);
+                R.safari();
+
+            })(china[state]['path'], state);
+        }
+
+        var selectbtn = document.getElementById("selectbtn");
+        var province = document.getElementById("province");
+        province.style.visibility = "hidden";
+        selectbtn.onclick = function(event){
+            console.log(province.style.visibility);
+            if(province.style.visibility == "hidden"){
+                province.style.visibility = "visible";
+            }else{
+                province.style.visibility = "hidden";
+
+            }
+        }
+        var savebtn = document.getElementById("savebtn");
+        function saveAction(){
+            var lis = document.getElementsByName("sltprovince");
+            for(var i =0; i <lis.length; i++){
+                var st = lis[i];
+                // console.log(st.checked);
+                if(st.checked == true){
+                    var text = st.value;
+                    china[text]['path'].attr({"fill":"#faa755"});
+
+                }
+            }
+        }
+        savebtn.onclick =  saveAction;
+
+        var exportimg = document.getElementById("exportimg");
+
+        exportimg.onclick = function(){
+            var svgString = R.toSVG();
+            console.log(china['beijing']['path'].attr('fill'));
+            exportimg.download = 'map.jpg';
+            exportimg.type = 'image/jpg';
+            var canvas = document.createElement('canvas');
+            canvg(canvas, svgString);
+            var dataURL = canvas.toDataURL("image/jpg");
+            exportimg.href = dataURL;
+        }
+
+    }
+</script>
+</html>
