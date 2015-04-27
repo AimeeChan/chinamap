@@ -248,10 +248,12 @@
             for(var i =0; i <lis.length; i++){
                 var st = lis[i];
                 // console.log(st.checked);
+                var text = st.value;
                 if(st.checked == true){
-                    var text = st.value;
                     china[text]['path'].attr({"fill":"#faa755"});
 
+                }else{
+                    china[text]['path'].attr({"fill":"#eee"});
                 }
             }
         }
@@ -261,7 +263,6 @@
 
         exportimg.onclick = function(){
             var svgString = R.toSVG();
-            console.log(china['beijing']['path'].attr('fill'));
             exportimg.download = 'map.jpg';
             exportimg.type = 'image/jpg';
             var canvas = document.createElement('canvas');
